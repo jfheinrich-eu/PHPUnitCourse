@@ -1,0 +1,48 @@
+{
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    },
+    "platform": {
+      "php": "7.2.34"
+    },
+    "optimize-autoloader": true
+  },
+  "autoload": {
+    "psr-4": {
+      "JFHeinrich\\PHPUnitCourse\\": "src/classes"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "JFHeinrich\\Test\\Examples\\": "tests/Examples",
+      "JFHeinrich\\Test\\": "tests"
+    }
+  },
+ "require-dev": {
+    "phpunit/phpunit": "8.5.25",
+    "mockery/mockery": "1.3.5",
+    "phpstan/phpstan": "1.4.10",
+    "johnkary/phpunit-speedtrap": "4.0.0"
+  },
+  "scripts": {
+    "composer:install:nodev": [
+      "composer install --no-dev --prefer-dist > /dev/null"
+    ],
+    "composer:install:tests": [
+      "composer install --prefer-dist > /dev/null"
+    ],
+    "tests": [
+      "Composer\\Config::disableProcessTimeout",
+      "./vendor/bin/phpunit -c ./phpunit.xml ./tests"
+    ],
+    "tests:coverage": [
+      "Composer\\Config::disableProcessTimeout",
+      "XDEBUG_MODE=coverage ./vendor/bin/phpunit --colors=never -c ./phpunit.xml --coverage-text ./tests"
+    ],
+    "phpstan": [
+      "Composer\\Config::disableProcessTimeout",
+      "./vendor/bin/phpstan analyse -c phpstan.neon --no-progress --memory-limit 1G"
+    ]
+  }
+}
