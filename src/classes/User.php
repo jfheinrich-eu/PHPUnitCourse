@@ -23,8 +23,17 @@ class User
         return trim("$this->first_name $this->surname");
     }
 
+    /**
+     * @param string $message
+     * @return bool
+     * @throws MailerException
+     */
     public function notify(string $message): bool
     {
+        if(is_null($this->email))
+        {
+            throw new MailerException('email cannot be null');
+        }
         return $this->mailer->sendMessage($this->email, $message);
     }
 }

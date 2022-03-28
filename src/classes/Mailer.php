@@ -4,12 +4,22 @@ namespace JFHeinrich\PHPUnitCourse;
 
 class Mailer
 {
+    /**
+     * @param string $email
+     * @param string $message
+     * @return bool
+     * @throws MailerException
+     */
     public function sendMessage(string $email, string $message): bool
     {
-        sleep(3);
+            if(empty($email))
+            {
+                throw new MailerException('eMail cannot be empty');
+            }
+            sleep(3);
 
-        echo "send '$message' to '$email'\n";
+            echo "send '$message' to '$email'\n";
 
-        return true;
+            return true;
     }
 }
