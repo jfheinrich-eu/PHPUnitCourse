@@ -36,4 +36,9 @@ class User
         }
         return $this->mailer->sendMessage($this->email, $message);
     }
+
+    public function staticNotify(string $message): bool
+    {
+        return $this->mailer::send($this->email, $message);
+    }
 }

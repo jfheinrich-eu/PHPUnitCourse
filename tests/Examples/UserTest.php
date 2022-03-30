@@ -6,6 +6,7 @@ use JFHeinrich\PHPUnitCourse\Mailer;
 use JFHeinrich\PHPUnitCourse\MailerException;
 use JFHeinrich\PHPUnitCourse\User;
 use JFHeinrich\Test\JFHeinrichTest;
+use Mockery as m;
 
 class UserTest extends JFHeinrichTest
 {
@@ -27,6 +28,11 @@ class UserTest extends JFHeinrichTest
         return (new User);
     }
 
+    protected function tearDown(): void
+    {
+        m::close();
+    }
+
     /**
      * @test
      */
@@ -39,7 +45,6 @@ class UserTest extends JFHeinrichTest
 
         $this->assertEquals("Heini Holtenbeen", $user->getFullName());
     }
-
 
     /**
      * @test
@@ -77,7 +82,7 @@ class UserTest extends JFHeinrichTest
      */
     public function CallNotifyWithNullAsEmailAddress(): void
     {
-        $user = new User;
+        $user = $this->getTestedClassObject();
 
         $mock_mailer = $this->createMock(Mailer::class);
 
@@ -95,7 +100,7 @@ class UserTest extends JFHeinrichTest
      */
     public function CallNotifyWithEmptyEmailAddress(): void
     {
-        $user = new User;
+        $user = $this->getTestedClassObject();
         $user->email = '';
 
         $mock_mailer = $this->getMockBuilder(Mailer::class)

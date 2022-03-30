@@ -22,4 +22,10 @@ class Mailer
 
             return true;
     }
+
+    public static function send(string $email, string $message): bool
+    {
+        echo "send '$message' to '$email' from static\n";
+        return true;
+    }
 }
